@@ -44,23 +44,22 @@ def emissionEstimate(X, Y, x, y):
 # y∗ = arg max e(x|y)
 # for each word x in the sequence
 # X, Y
-def getTag(X, Y):
-    tags_for_X = list(X)
+def getTag(X_Test, X, Y):
+    tags_for_X = list(X_Test)
     unique_tags = getUnique(Y)
-    for sentence in X:
+    for sentence in X_Test:
         for word in sentence:
             possible_Y = [0]*len(unique_tags)
             for i in range(0, len(unique_tags)):
                 possible_Y[i] = emissionEstimate(X, Y, word, unique_tags[i])
-            tags_for_X[X.index(sentence)][sentence.index(word)] = unique_tags[possible_Y.index(max(possible_Y))]
+            tags_for_X[X_Test.index(sentence)][sentence.index(word)] = unique_tags[possible_Y.index(max(possible_Y))]
     return tags_for_X
 
 
-# test cases
+# test cases- THESE ARE BAD ONES, BUT THEY CHECK FUNCTIONALITY, SO OH WELL
 X = [["the", "cow", "jumped", "over", "the", "moon"], ["the", "dish", "ran", "away", "with", "the", "spoon"]]
 Y = [["D", "N", "V", "P", "D", "N"], ["D", "N", "V", "A", "P", "D", "N"]]
 print("for word in training set:" + str(emissionEstimate(X, Y, "the", "D")))
 print("for word in training set:" + str(emissionEstimate(X, Y, "the", "P")))
-# this is weird. must email LiHao
-print(getTag(X,Y))
-
+X_Test = [["the", "cat", "cried", "over", "the", "milk"], ["The", "Spoon", "and", "fork", "ran", "away", "from", "the", "knife"]]
+print(getTag(X_Test, X, Y))
