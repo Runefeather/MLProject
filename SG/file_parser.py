@@ -1,5 +1,6 @@
 # author: arjun brar
 # parses input file to [[sentence], [sentence], [sentence]] and [[tag], [tag], [tag]]
+# return it in tuple format of (X, Y)
 
 def file_parse(filename):
     # Open the file to read
