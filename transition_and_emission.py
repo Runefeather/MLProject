@@ -57,9 +57,9 @@ def getTag(X_Test, X, Y):
 
 
 # test cases- THESE ARE BAD ONES, BUT THEY CHECK FUNCTIONALITY, SO OH WELL
-X = [["the", "cow", "jumped", "over", "the", "moon"], ["the", "dish", "ran", "away", "with", "the", "spoon"]]
-Y = [["D", "N", "V", "P", "D", "N"], ["D", "N", "V", "A", "P", "D", "N"]]
-print("for word in training set:" + str(emissionEstimate(X, Y, "the", "D")))
-print("for word in training set:" + str(emissionEstimate(X, Y, "the", "P")))
-X_Test = [["the", "cat", "cried", "over", "the", "milk"], ["The", "Spoon", "and", "fork", "ran", "away", "from", "the", "knife"]]
-print(getTag(X_Test, X, Y))
+# X = [["the", "cow", "jumped", "over", "the", "moon"], ["the", "dish", "ran", "away", "with", "the", "spoon"]]
+# Y = [["D", "N", "V", "P", "D", "N"], ["D", "N", "V", "A", "P", "D", "N"]]
+# print("for word in training set:" + str(emissionEstimate(X, Y, "the", "D")))
+# print("for word in training set:" + str(emissionEstimate(X, Y, "the", "P")))
+# X_Test = [["the", "cat", "cried", "over", "the", "milk"], ["The", "Spoon", "and", "fork", "ran", "away", "from", "the", "knife"]]
+# print(getTag(X_Test, X, Y))
