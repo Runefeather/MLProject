@@ -1,4 +1,5 @@
 # author: arjun brar
+# arguments: name of the file to be parsed, and a true/false for whether it is in training mode or not.`
 # parses input file to [[sentence], [sentence], [sentence]] and [[tag], [tag], [tag]]
 # return it in tuple format of (X, Y)
 
@@ -55,4 +56,5 @@ def file_parse(filename, training):
         return X, Y
     else:
         return X
-# print(file_parse("ES/train"))
+
+# print(file_parse("ES/train", true))
