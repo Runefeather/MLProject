@@ -4,7 +4,7 @@
 
 DEBUG=False
 
-def file_parse(filename):
+def file_parse(filename, training):
     # Open the file to read
     f = open(filename, "r")
 
@@ -34,12 +34,12 @@ def file_parse(filename):
 
             # debugging stuff
             if DEBUG:
-                print(repr(line.strip("\n")).strip("'").strip('"'), len(repr(line.strip("\n")).strip("'").strip('"')))
+                print(repr(line.strip("\n\r")).strip("'").strip('"'), len(repr(line.strip("\n\r")).strip("'").strip('"')))
                 print(word)
 
             #appending word and tag into temp variables
             wordL.append(word)
-            tagL.append(tag)    
+            tagL.append(tag)
         else:
             #appending temp variables to X and Y
             X.append(wordL)
@@ -51,6 +51,8 @@ def file_parse(filename):
 
 
     print("Done")
-    return X, Y
-
+    if training:
+        return X, Y
+    else:
+        return X
 # print(file_parse("ES/train"))
