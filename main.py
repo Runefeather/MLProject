@@ -14,10 +14,10 @@ from baseline_system import *
 
 def getScores(outfile_generated, outfile_given):
 	# DO THINGS
-
+        return None
 if __name__ == '__main__':
     train_filename = sys.argv[1]
-    test_filename = sys.argv[2]	
+    test_filename = sys.argv[2]
     outfile = sys.argv[3]
 
     print(train_filename, test_filename, outfile)
