@@ -55,4 +55,4 @@ def file_parse(filename, training):
     else:
         return X
 
-print(file_parse("ES/train", True))
+print(file_parse("ES/dev.in", False))
