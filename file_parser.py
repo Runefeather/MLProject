@@ -1,4 +1,4 @@
-# author: arjun brar
+ author: arjun brar
 # arguments: name of the file to be parsed, and a true/false for whether it is in training mode or not.
 # parses input file to [[sentence], [sentence], [sentence]] and [[tag], [tag], [tag]]
 # return it in tuple format of (X, Y)
