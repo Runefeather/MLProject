@@ -9,50 +9,78 @@ def file_parse(filename, training):
     # Open the file to read
     f = open(filename, "r")
 
-    #initializing the return variables
-    X = []
-    Y = []
-
-    #initializing the temporary variables
-    wordL = []
-    tagL = []
-
-    #going over every line in the file
-    for line in f:
-        #repr to get the \n char, stripping the " and '.
-        item = repr(line.strip("\n\r")).strip("'").strip('"')
-
-        #checking for new sentence
-        if len(item) != 0:
-            #splitting the line into word and tag
-            word, tag = item.split(" ")
-
-            # debugging stuff
-            if DEBUG:
-                print(repr(line.strip("\n\r")).strip("'").strip('"'), len(repr(line.strip("\n\r")).strip("'").strip('"')))
-                print(word)
-
-            #appending word and tag into temp variables
-            wordL.append(word)
-            tagL.append(tag)
-        else:
-            #appending temp variables to X and Y
-            X.append(wordL)
-            Y.append(tagL)
-
-            #reinitializing temp variables
-            wordL = []
-            tagL = []
-
-    # performing sanity check for X and Y- added a return so it breaks here
-    for i in range(len(X)):
-        if len(X[i]) != len(Y[i]):
-            print("issue at sentence", str(i))
-
-
     if training:
+        #initializing the return variables
+        X = []
+        Y = []
+
+        #initializing the temporary variables
+        wordL = []
+        tagL = []
+
+        #going over every line in the file
+        for line in f:
+            #repr to get the \n char, stripping the " and '.
+            item = repr(line.strip("\n\r")).strip("'").strip('"')
+
+            #checking for new sentence
+            if len(item) != 0:
+                #splitting the line into word and tag
+                word, tag = item.split(" ")
+
+                # debugging stuff
+                if DEBUG:
+                    print(repr(line.strip("\n\r")).strip("'").strip('"'), len(repr(line.strip("\n\r")).strip("'").strip('"')))
+                    print(word)
+
+                #appending word and tag into temp variables
+                wordL.append(word)
+                tagL.append(tag)
+            else:
+                #appending temp variables to X and Y
+                X.append(wordL)
+                Y.append(tagL)
+
+                #reinitializing temp variables
+                wordL = []
+                tagL = []
+
+        # performing sanity check for X and Y- added a return so it breaks here
+        for i in range(len(X)):
+            if len(X[i]) != len(Y[i]):
+                print("issue at sentence", str(i))
+
         return X, Y
     else:
+        #initializing the return variables
+        X = []
+
+        #initializing the temporary variables
+        wordL = []
+
+        #going over every line in the file
+        for line in f:
+            #repr to get the \n char, stripping the " and '.
+            item = repr(line.strip("\n\r")).strip("'").strip('"')
+
+            #checking for new sentence
+            if len(item) != 0:
+                #splitting the line into word and tag
+                word = item
+
+                # debugging stuff
+                if DEBUG:
+                    print(repr(line.strip("\n\r")).strip("'").strip('"'), len(repr(line.strip("\n\r")).strip("'").strip('"')))
+                    print(word)
+
+                #appending word and tag into temp variables
+                wordL.append(word)
+            else:
+                #appending temp variables to X and Y
+                X.append(wordL)
+
+                #reinitializing temp variables
+                wordL = []
         return X
 
-print(file_parse("ES/train", True))
+print(file_parse("EN/dev.in", False))
