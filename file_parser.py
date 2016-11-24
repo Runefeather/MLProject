@@ -83,4 +83,5 @@ def file_parse(filename, training):
                 wordL = []
         return X
 
-print(file_parse("EN/dev.in", False))
+# Test
+# print(file_parse("EN/dev.in", False))

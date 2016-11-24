@@ -29,4 +29,16 @@ if __name__ == '__main__':
     test_X = file_parse(test_filename, False)
 
     # next, pass train_X, train_Y, test_X to part_2_project functions
-    print(getTag(test_X, train_X, train_Y))
+    test_Y = getTag(test_X, train_X, train_Y)
+    
+    test_X = file_parse(test_filename, False)
+    
+
+    for i in range(0, len(test_X)):
+        for j in range(0, len(test_X[i])):
+            print(str(test_X[i][j]) + " " + str(test_Y[i][j]))
+    # unique = getUnique(train_Y)
+    # for i in range(0, len(unique)):
+        # print("Yi: " + str(unique[i]) + ", count: " + str(1/(countY(train_Y, unique[i]) + 1)))
+        # for j in range(0, len(unique)):
+        #     print("Yi: " +str(unique[i]) + ", Yj: " + str(unique[j]) + ", transition params: " + str(transitionParameter(train_Y, unique[i], unique[j])))

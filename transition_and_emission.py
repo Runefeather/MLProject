@@ -65,14 +65,21 @@ def emissionParameter(X, Y, x, y):
 # for each word x in the sequence
 # X, Y
 def getTag(X_Test, X, Y):
-    tags_for_X = list(X_Test)
+    tags_for_X = list(X_Test)    
     unique_tags = getUnique(Y)
+    print(unique_tags)
+    print("Getting tags..   ")
+    print(len(X_Test))
+    counter = 0
     for sentence in X_Test:
+        counter += 1
         for word in sentence:
             possible_Y = [0]*len(unique_tags)
             for i in range(0, len(unique_tags)):
                 possible_Y[i] = emissionParameter(X, Y, word, unique_tags[i])
             tags_for_X[X_Test.index(sentence)][sentence.index(word)] = unique_tags[possible_Y.index(max(possible_Y))]
+        print("1 sentence down, " + str(len(X_Test) - counter)+ " to go")
+    print("Done!")
     return tags_for_X
 
 # -------------------------------------------------------------------------------------------
@@ -83,6 +90,7 @@ def getTag(X_Test, X, Y):
 # -------------------------------------
 # transition parameter q(yi|yi-1) = count(yi-1, yi)/count(yi-1)
 def transitionParameter(Y, yi_minus_one, yi):
+    print(yi_minus_one, yi)
     if yi_minus_one == 'START':
         pattern = '0' + yi
         count_yi_minus_one = len(Y)
