@@ -2,7 +2,6 @@
 # python3 run.py input1.txt input2.txt output.txt
 
 """ TODO:
-# Change syntax based on file_parser modifications
 # Add try/catch here
 """
 
@@ -33,10 +32,16 @@ if __name__ == '__main__':
     
     test_X = file_parse(test_filename, False)
     
-
+    f = open(outfile,'w')
     for i in range(0, len(test_X)):
         for j in range(0, len(test_X[i])):
-            print(str(test_X[i][j]) + " " + str(test_Y[i][j]))
+            towrite = str(test_X[i][j]) + " " + str(test_Y[i][j])
+            f.write(towrite+'\n') 
+    f.close() 
+
+
+
+
     # unique = getUnique(train_Y)
     # for i in range(0, len(unique)):
         # print("Yi: " + str(unique[i]) + ", count: " + str(1/(countY(train_Y, unique[i]) + 1)))

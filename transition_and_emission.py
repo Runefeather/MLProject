@@ -69,7 +69,7 @@ def getTag(X_Test, X, Y):
     unique_tags = getUnique(Y)
     print(unique_tags)
     print("Getting tags..   ")
-    print(len(X_Test))
+    # print(len(X_Test))
     counter = 0
     for sentence in X_Test:
         counter += 1
@@ -90,14 +90,14 @@ def getTag(X_Test, X, Y):
 # -------------------------------------
 # transition parameter q(yi|yi-1) = count(yi-1, yi)/count(yi-1)
 def transitionParameter(Y, yi_minus_one, yi):
-    print(yi_minus_one, yi)
+    # print(yi_minus_one, yi)
     if yi_minus_one == 'START':
         pattern = '0' + yi
         count_yi_minus_one = len(Y)
 
     elif yi == 'STOP':
         pattern = yi_minus_one + '9'
-        count_yi_minus_one = len(Y)
+        count_yi_minus_one = countY(Y, yi_minus_one)
 
     else:
         pattern = yi_minus_one + yi
