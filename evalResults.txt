@@ -1,0 +1,17 @@
+# PART 2
+# --------------------------------------
+# EN: python EvalScript/evalResult.py EN/dev.out EN/test.out 
+
+#Entity in gold data: 662
+#Entity in prediction: 2636
+
+#Correct Entity : 148
+Entity  precision: 0.0561
+Entity  recall: 0.2236
+Entity  F: 0.0898
+
+#Correct Sentiment : 38
+Sentiment  precision: 0.0144
+Sentiment  recall: 0.0574
+Sentiment  F: 0.0230
+

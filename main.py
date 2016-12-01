@@ -37,19 +37,25 @@ if __name__ == '__main__':
         for i in range(0, len(test_X)):
             for j in range(0, len(test_X[i])):
                 towrite = str(test_X[i][j]) + " " + str(tags[test_X[i][j]])
-                f.write(towrite+'\n') 
+                f.write(towrite+'\n')
+            f.write('\n') 
         f.close() 
 
     if(function == 'viterbi'):
         # next, pass train_X, train_Y, test_X to part_2_project functions
-        test_Y = viterbi(test_X, train_X, train_Y)
-        test_Y = [(sentence[1:-1]) for sentence in test_Y]
-                
+        # test_Y = viterbi(test_X, train_X, train_Y)
+
         f = open(outfile,'w')
-        for i in range(1, len(test_X)):
+        for i in range(0, len(test_X)):
+            print(test_X[i])
+            print("Writing one sentence, " + str(len(test_X)-i) + " to go.")
+            viterbi_sentence = viterbi(train_X, train_Y, test_X, test_X[i], len(test_X[i]))
+            # print("viterbi_sentence: " + str(len(viterbi_sentence)) + ", X_test: " + str(len(test_X[i])) )
             for j in range(0, len(test_X[i])):
-                towrite = str(test_X[i][j]) + " " + str(test_Y[i][j])
+                towrite = str(test_X[i][j]) + " " + str(viterbi_sentence[j])
+                # print("writing 1 sentence")
                 f.write(towrite+'\n') 
+            f.write('\n')
         f.close() 
 
 
