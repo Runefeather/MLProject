@@ -20,8 +20,12 @@ def checkX(X, word):
             return True
 
 # get all unique tags in Y
-def getUnique(Y):
-    return list(set(x for l in Y for x in l))
+def getUniqueY(Y):
+    return list(set(y for l in Y for y in l))
+
+# get all unique words in X
+def getUniqueX(X):
+    return list(set(x for l in X for x in l))
 
 # count pattern of tags
 # ASSUMING THAT START = 0, STOP = 9
@@ -36,7 +40,6 @@ def countPattern(Y, pattern):
 
 # -------------------------------------------------------------------------------------------
 # PART 2
-
 
 # EMISSION PARAMETERS FOR ONE (xi, yi)
 # -------------------------------------
@@ -53,7 +56,7 @@ def emissionParameter(X, Y, x, y):
             for j in range(0, len(X[i])):
                 if Y[i][j] == y and X[i][j] == x:
                     count_YX += 1
-        return (count_YX/countY(Y, y))
+        return (count_YX/(countY(Y, y) + 1))
     # if not
     else:
         return (1/(countY(Y, y) + 1))
@@ -65,20 +68,25 @@ def emissionParameter(X, Y, x, y):
 # for each word x in the sequence
 # X, Y
 def getTag(X_Test, X, Y):
-    tags_for_X = list(X_Test)    
-    unique_tags = getUnique(Y)
-    print(unique_tags)
+    # dictionary of {word : tag}
+    tags_for_X = {}    
+    # unique tags
+    unique_tags = getUniqueY(Y)
+    # unique words, because here, order does not matter
+    unique_words = getUniqueX(X_Test)
     print("Getting tags..   ")
-    # print(len(X_Test))
     counter = 0
-    for sentence in X_Test:
+
+    for word in unique_words:
         counter += 1
-        for word in sentence:
-            possible_Y = [0]*len(unique_tags)
-            for i in range(0, len(unique_tags)):
-                possible_Y[i] = emissionParameter(X, Y, word, unique_tags[i])
-            tags_for_X[X_Test.index(sentence)][sentence.index(word)] = unique_tags[possible_Y.index(max(possible_Y))]
-        print("1 sentence down, " + str(len(X_Test) - counter)+ " to go")
+        possible_Y = {}
+        for tag in unique_tags:
+            possible_Y[tag] = emissionParameter(X, Y, word, tag)
+        # print("word: " + str(word) + ", possible y: " + str(possible_Y))
+        max_val = max(possible_Y.values())
+        # print("max: " + str(max(possible_Y.values())))    
+        tags_for_X[word] = list(possible_Y.keys())[list(possible_Y.values()).index(max_val)]
+        print("1 word down, " + str(len(unique_words) - counter) + " to go")
     print("Done!")
     return tags_for_X
 
@@ -110,9 +118,12 @@ def transitionParameter(Y, yi_minus_one, yi):
 # test cases- THESE ARE BAD ONES, BUT THEY CHECK FUNCTIONALITY, SO OH WELL
 X = [["the", "cow", "jumped", "over", "the", "moon"], ["the", "dish", "ran", "away", "with", "the", "spoon"]]
 Y = [["D", "N", "V", "P", "D", "N"], ["D", "N", "V", "A", "P", "D", "N"]]
+X_Test = [["the", "cat", "cried", "over", "the", "milk"], ["the", "Spoon", "and", "fork", "ran", "away", "from", "the", "knife"]]
+
+
+# print(getUniqueX(X_Test))
 # print("for word in training set:" + str(emissionParameter(X, Y, "the", "D")))
 # print("for word in training set:" + str(emissionParameter(X, Y, "the", "P")))
-X_Test = [["the", "cat", "cried", "over", "the", "milk"], ["The", "Spoon", "and", "fork", "ran", "away", "from", "the", "knife"]]
 # print(getTag(X_Test, X, Y))
 # print("transition params: " + str(transitionParameter(Y, 'START', 'D')))
 # print("transition params: " + str(transitionParameter(Y, 'N', 'STOP')))

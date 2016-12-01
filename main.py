@@ -8,6 +8,7 @@
 import sys
 from file_parser import file_parse
 from transition_and_emission import *
+from viterbi import *
 # from baseline_system import *
 
 
@@ -18,6 +19,7 @@ if __name__ == '__main__':
     train_filename = sys.argv[1]
     test_filename = sys.argv[2]
     outfile = sys.argv[3]
+    function = sys.argv[4]
 
     print(train_filename, test_filename, outfile)
 
@@ -27,19 +29,28 @@ if __name__ == '__main__':
 
     test_X = file_parse(test_filename, False)
 
-    # next, pass train_X, train_Y, test_X to part_2_project functions
-    test_Y = getTag(test_X, train_X, train_Y)
-    
-    test_X = file_parse(test_filename, False)
-    
-    f = open(outfile,'w')
-    for i in range(0, len(test_X)):
-        for j in range(0, len(test_X[i])):
-            towrite = str(test_X[i][j]) + " " + str(test_Y[i][j])
-            f.write(towrite+'\n') 
-    f.close() 
+    if(function == 'getTags'):
+        # next, pass train_X, train_Y, test_X to part_2_project functions
+        tags = getTag(test_X, train_X, train_Y)
+                
+        f = open(outfile,'w')
+        for i in range(0, len(test_X)):
+            for j in range(0, len(test_X[i])):
+                towrite = str(test_X[i][j]) + " " + str(tags[test_X[i][j]])
+                f.write(towrite+'\n') 
+        f.close() 
 
-
+    if(function == 'viterbi'):
+        # next, pass train_X, train_Y, test_X to part_2_project functions
+        test_Y = viterbi(test_X, train_X, train_Y)
+        test_Y = [(sentence[1:-1]) for sentence in test_Y]
+                
+        f = open(outfile,'w')
+        for i in range(1, len(test_X)):
+            for j in range(0, len(test_X[i])):
+                towrite = str(test_X[i][j]) + " " + str(test_Y[i][j])
+                f.write(towrite+'\n') 
+        f.close() 
 
 
     # unique = getUnique(train_Y)
