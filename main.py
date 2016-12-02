@@ -1,5 +1,5 @@
 # USAGE
-# python3 run.py input1.txt input2.txt output.txt
+# python3 run.py input1.txt-train input2.txt-test output.txt function
 
 """ TODO:
 # Add try/catch here
@@ -30,7 +30,6 @@ if __name__ == '__main__':
     test_X = file_parse(test_filename, False)
 
     if(function == 'getTags'):
-        # next, pass train_X, train_Y, test_X to part_2_project functions
         tags = getTag(test_X, train_X, train_Y)
                 
         f = open(outfile,'w')
@@ -42,25 +41,14 @@ if __name__ == '__main__':
         f.close() 
 
     if(function == 'viterbi'):
-        # next, pass train_X, train_Y, test_X to part_2_project functions
-        # test_Y = viterbi(test_X, train_X, train_Y)
-
         f = open(outfile,'w')
+        print("Running viterbi")
         for i in range(0, len(test_X)):
-            print(test_X[i])
+            # print(test_X[i])
             print("Writing one sentence, " + str(len(test_X)-i) + " to go.")
             viterbi_sentence = viterbi(train_X, train_Y, test_X, test_X[i], len(test_X[i]))
-            # print("viterbi_sentence: " + str(len(viterbi_sentence)) + ", X_test: " + str(len(test_X[i])) )
             for j in range(0, len(test_X[i])):
                 towrite = str(test_X[i][j]) + " " + str(viterbi_sentence[j])
-                # print("writing 1 sentence")
                 f.write(towrite+'\n') 
             f.write('\n')
         f.close() 
-
-
-    # unique = getUnique(train_Y)
-    # for i in range(0, len(unique)):
-        # print("Yi: " + str(unique[i]) + ", count: " + str(1/(countY(train_Y, unique[i]) + 1)))
-        # for j in range(0, len(unique)):
-        #     print("Yi: " +str(unique[i]) + ", Yj: " + str(unique[j]) + ", transition params: " + str(transitionParameter(train_Y, unique[i], unique[j])))

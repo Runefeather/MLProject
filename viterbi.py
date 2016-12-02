@@ -14,7 +14,7 @@ def viterbi(X, Y, X_test, sentence, N):
         return "NULL"
     unique_tags = getUniqueY(Y)
     trellis = dict.fromkeys(list(range(1, N+2)))
-
+    # 1 to 
     for k in range(1, N+1):
         trellis[k] = dict.fromkeys(unique_tags)
 
@@ -22,8 +22,6 @@ def viterbi(X, Y, X_test, sentence, N):
         if k == 1:
             word_to_emit = sentence[k-1]
             for tag in unique_tags:
-                # print("word to emit: " + word_to_emit + ", tag: " + tag)
-                # print("emission: " + str(emissionParameter(X, Y, word_to_emit, tag)) + ", transition: " + str(transitionParameter(Y, 'START', tag)))
                 trellis[k][tag] = (1*emissionParameter(X, Y, word_to_emit, tag)*transitionParameter(Y, 'START', tag), 'START')
         
         # for everything else
@@ -31,9 +29,8 @@ def viterbi(X, Y, X_test, sentence, N):
             word_to_emit = sentence[k-1]
             for tag in unique_tags:
                 possible_tags = dict.fromkeys(unique_tags)
-                # get values from previous layer:
+           
                 for prev_tag in unique_tags:
-                    # print(trellis[k-1][prev_tag])
                     possible_tags[prev_tag] = trellis[k-1][prev_tag][0]*emissionParameter(X, Y, word_to_emit, tag)*transitionParameter(Y, prev_tag, tag)
                 trellis[k][tag] = (max(possible_tags.values()), list(possible_tags.keys())[list(possible_tags.values()).index(max(possible_tags.values()))])
         # print("trellis: " + str(trellis[k]))
@@ -57,11 +54,14 @@ def backtrack(trellis):
         path[N-i-2] = trellis[N-i][path[N-1-i]][1]
     return path
 
-X = [["the", "cow", "jumped", "over", "the", "moon"], ["the", "dish", "ran", "away", "with", "the", "spoon"]]
-Y = [["D", "N", "V", "P", "D", "N"], ["D", "N", "V", "A", "P", "D", "N"]]
-X_Test = [["the", "cat", "cried", "over", "the", "milk"], ["the", "Spoon", "and", "fork", "ran", "away", "from", "the", "knife"]]
-print(viterbi(X, Y, X_Test, X_Test[0], len(X_Test[0])))
 
+
+# TEST CASES:
+# X = [["the", "cow", "jumped", "over", "the", "moon"], ["the", "dish", "ran", "away", "with", "the", "spoon"]]
+# Y = [["D", "N", "V", "P", "D", "N"], ["D", "N", "V", "A", "P", "D", "N"]]
+# X_Test = [["the", "cat", "cried", "over", "the", "milk"], ["the", "Spoon", "and", "fork", "ran", "away", "from", "the", "knife"]]
+# print(viterbi(X, Y, X_Test, X_Test[0], len(X_Test[0])))
+# -----------------------------------------------------------------------------------------
 # X = [["b", "c", "a", "b"], ["a", "b", "a"], ["b", "c", "a", "b", "c"], ["c", "b", "a"]]
 # Y = [["X", "Y", "Z", "X"], ["X", "Z", "Y"], ["Z", "Y", "X", "Z", "Y"], ["Z", "X", "Y"]]
 # X_test = [["b", "b"]]
