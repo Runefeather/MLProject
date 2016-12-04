@@ -21,7 +21,7 @@ def file_parse(filename, training):
         #going over every line in the file
         for line in f:
             #repr to get the \n char, stripping the " and '.
-            item = repr(line.strip("\n\r")).strip("'").strip('"')
+            item = line.strip("\n\r")
 
             #checking for new sentence
             if len(item) != 0:
@@ -61,8 +61,7 @@ def file_parse(filename, training):
         #going over every line in the file
         for line in f:
             #repr to get the \n char, stripping the " and '.
-            item = repr(line.strip("\n\r")).strip("'").strip('"')
-
+            item = line.strip("\n\r")
             #checking for new sentence
             if len(item) != 0:
                 #splitting the line into word and tag
