@@ -21,10 +21,13 @@ def file_parse(filename, training):
         #going over every line in the file
         for line in f:
             #repr to get the \n char, stripping the " and '.
-            item = repr(line.strip("\n\r")).strip("'").strip('"')
-
+            item = line.strip("\n\r")
+            # print(item)
+            # item.strip(item[0])
+            # print(item)
             #checking for new sentence
             if len(item) != 0:
+                # print(item)
                 #splitting the line into word and tag
                 word, tag = item.split(" ")
 
@@ -50,6 +53,8 @@ def file_parse(filename, training):
             if len(X[i]) != len(Y[i]):
                 print("issue at sentence", str(i))
 
+
+
         return X, Y
     else:
         #initializing the return variables
@@ -61,7 +66,8 @@ def file_parse(filename, training):
         #going over every line in the file
         for line in f:
             #repr to get the \n char, stripping the " and '.
-            item = repr(line.strip("\n\r")).strip("'").strip('"')
+            item = line.strip("\n\r")
+
 
             #checking for new sentence
             if len(item) != 0:
@@ -81,6 +87,7 @@ def file_parse(filename, training):
 
                 #reinitializing temp variables
                 wordL = []
+
         return X
 
 # Test
