@@ -8,7 +8,7 @@
 # -------------------------------------
 # counts number of times y appears in Y
 def countY(Y, tag):
-    total_Y = 0
+    total_Y = 0 
     for tags_for_sentence in Y:
         total_Y += tags_for_sentence.count(tag)
     return total_Y
@@ -61,6 +61,18 @@ def emissionParameter(X, Y, x, y):
     else:
         return (1/(countY(Y, y) + 1))
 
+# CREATING AN EMISSION TABLE
+# -------------------------------------------------------------------------------------------
+def emissionTable(X, Y, X_test):
+    emissionTable = {}
+    unique_tags = getUniqueY(Y)
+    unique_words = getUniqueX(X_test)
+
+    for word in unique_words:
+        for tag in unique_tags:
+            emissionTable[(word, tag)] = emissionParameter(X, Y, word, tag)
+    return emissionTable
+
 # GET TAGS FOR ALL SENTENCES USING EMISSION PARAMETERS
 # -------------------------------------
 # Implement a simple sentiment analysis system that produces the tag
@@ -68,6 +80,7 @@ def emissionParameter(X, Y, x, y):
 # for each word x in the sequence
 # X, Y
 def getTag(X_Test, X, Y):
+    EMISSION = emissionTable(X_Test, X, Y)
     # dictionary of {word : tag}
     tags_for_X = {}    
     # unique tags
@@ -81,7 +94,7 @@ def getTag(X_Test, X, Y):
         counter += 1
         possible_Y = {}
         for tag in unique_tags:
-            possible_Y[tag] = emissionParameter(X, Y, word, tag)
+            possible_Y[tag] = EMISSION[(word, tag)]
         # print("word: " + str(word) + ", possible y: " + str(possible_Y))
         max_val = max(possible_Y.values())
         # print("max: " + str(max(possible_Y.values())))    
@@ -114,6 +127,17 @@ def transitionParameter(Y, yi_minus_one, yi):
     transiton_count = countPattern(Y, pattern) 
     return transiton_count/count_yi_minus_one
 
+
+def transitionTable(Y):
+    transitionTable = {}
+    unique_tags = getUniqueY(Y)
+
+    for tag in unique_tags:
+        transitionTable[('START', tag)] = transitionParameter(Y, 'START', tag)
+        transitionTable[(tag, 'STOP')] = transitionParameter(Y, tag, 'STOP')
+        for next_tag in unique_tags:
+            transitionTable[(tag, next_tag)] = transitionParameter(Y, tag, next_tag)
+    return transitionTable
 
 # test cases- THESE ARE BAD ONES, BUT THEY CHECK FUNCTIONALITY, SO OH WELL
 # X = [["the", "cow", "jumped", "over", "the", "moon"], ["the", "dish", "ran", "away", "with", "the", "spoon"]]

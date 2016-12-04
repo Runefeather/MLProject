@@ -42,11 +42,18 @@ if __name__ == '__main__':
 
     if(function == 'viterbi'):
         f = open(outfile,'w')
-        print("Running viterbi")
+        print("generating tables..")
+        EMISSION = emissionTable(train_X, train_Y, test_X)
+        print("emission done")
+        TRANSITION = transitionTable(train_Y)
+        print("transition done")
+        unique_tags = getUniqueY(train_Y)
+        print("unique tags gotten from text")
+        print("All pre-requisites done, now running viterbi")
         for i in range(0, len(test_X)):
             # print(test_X[i])
             print("Writing one sentence, " + str(len(test_X)-i) + " to go.")
-            viterbi_sentence = viterbi(train_X, train_Y, test_X, test_X[i], len(test_X[i]))
+            viterbi_sentence = viterbi(test_X[i], len(test_X[i]), TRANSITION, EMISSION, unique_tags)
             for j in range(0, len(test_X[i])):
                 towrite = str(test_X[i][j]) + " " + str(viterbi_sentence[j])
                 f.write(towrite+'\n') 
