@@ -9,6 +9,7 @@ import sys
 from file_parser import file_parse
 from transition_and_emission import *
 from viterbi import *
+from viterbi_p4_v3 import *
 # from baseline_system import *
 
 
@@ -59,3 +60,32 @@ if __name__ == '__main__':
                 f.write(towrite+'\n') 
             f.write('\n')
         f.close() 
+
+    if(function == 'viterbi_topk'):
+        f = open(outfile,'w')
+        print("generating tables..")
+        EMISSION = emissionTable(train_X, train_Y, test_X)
+        print("emission done")
+        TRANSITION = transitionTable(train_Y)
+        print("transition done")
+        unique_tags = getUniqueY(train_Y)
+        print("unique tags gotten from text")
+        print("All pre-requisites done, now running viterbi")
+        for i in range(0, len(test_X)):
+            # print(test_X[i])
+            print("Writing one sentence, " + str(len(test_X)-i) + " to go.")
+            viterbi_sentence = viterbiTopK(test_X[i], len(test_X[i]), TRANSITION, EMISSION, unique_tags, 5)[4][1]
+            for j in range(0, len(test_X[i])):
+                towrite = str(test_X[i][j]) + " " + str(viterbi_sentence[j])
+                f.write(towrite+'\n') 
+            f.write('\n')
+        f.close() 
+
+
+
+
+
+
+
+
+
